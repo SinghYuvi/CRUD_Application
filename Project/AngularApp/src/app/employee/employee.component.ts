@@ -50,6 +50,16 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
+  onDelete(_id: string, form: NgForm) {
+    if (confirm('Are you sure to delete this record ?') == true) {
+      this.employeeService.deleteEmployee(_id).subscribe((res) => {
+        console.log(res);
+        this.refreshEmployeeList();
+        this.resetForm(form);
+        M.toast({ html: 'Deleted successfully', classes: 'rounded' });
+      }); 
+    }
+  }
   refreshEmployeeList() {
     this.employeeService.getEmployeeList().subscribe((res) => {
       this.employeeService.employees = res as Employee[];
@@ -60,14 +70,6 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.selectedEmployee = emp;
   }
 
-  onDelete(_id: string, form: NgForm) {
-    if (confirm('Are you sure to delete this record ?') == true) {
-      this.employeeService.deleteEmployee(_id).subscribe((res) => {
-        this.refreshEmployeeList();
-        this.resetForm(form);
-        M.toast({ html: 'Deleted successfully', classes: 'rounded' });
-      });
-    }
-  }
+ 
 
 }

@@ -2,6 +2,7 @@ const express = require('express');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
 
+
 var{ Employee } = require('../models/employee');
 
 //Get All Employees list/ => localhost:3000/employees/
@@ -64,7 +65,7 @@ router.delete('/delete/:id', (req,res) =>{
     return res.status(400).send(`No record with given id: ${req.params.id}`);
 
     Employee.findByIdAndRemove(req.params.id, (err, doc) =>{
-        if(!err){res.send('Given ID has been deleted');}
+        if(!err){res.send(doc);}
         else{ console.log('Error while deleting Employee:' +JSON.stringify(err, undefined, 2));}
     });
 });
